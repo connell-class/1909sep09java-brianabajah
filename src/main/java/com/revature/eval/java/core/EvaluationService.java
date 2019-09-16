@@ -1,6 +1,8 @@
 package com.revature.eval.java.core;
 
+import java.nio.charset.Charset;
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +33,19 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String[] splitPhrase=phrase.split(" ");
+		String acronym="";
+		for(int x=0;x<splitPhrase.length;x++) {
+			if(splitPhrase[x].contains("-")) {
+				acronym+=splitPhrase[x].charAt(0);
+				int ind=splitPhrase[x].indexOf("-")+1;
+				acronym+=splitPhrase[x].charAt(ind);
+			}
+			else
+			acronym+=splitPhrase[x].charAt(0);
+			
+		}
+		return acronym.toUpperCase();
 	}
 
 	/**
@@ -85,17 +99,43 @@ public class EvaluationService {
 
 		public boolean isEquilateral() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			//if 3 (returns 2) sides return true
+			
+			return testSides()==2?true:false;
 		}
 
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			//if 2 (returns 1) sides return true
+			return testSides()==1?true:false;
 		}
 
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			//if 1 (returns 0) sides return true
+			return testSides()==0?true:false;
+		}
+		private int testSides() {
+			double[] sides= {sideOne,sideTwo,sideThree};
+			int eqlSides=0,output=0;
+			//loop through all sides
+			
+			for(int x=0;x<3;x++) {
+				int compVal=x;
+				for(int y=0;y<2;y++) {
+					compVal++;	//Represent the index to values other than sides[x]				
+					compVal = compVal>2?0:compVal;//is compVal==[3] start compare from [0]
+					//
+					if (sides[x]==sides[compVal]) {
+						eqlSides+=1;//Count for compare values
+					}					
+				}		
+				//
+				output = eqlSides > output?eqlSides:output;	
+				if(eqlSides==2)break;
+				eqlSides=0;
+			}
+			return output;
 		}
 
 	}
@@ -116,8 +156,33 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
+		String[] points= {"AEIOULNRST",
+			"DG",
+			"BCMP",
+			"FHVWY",
+			"K",
+			"JX",
+			"QZ"} ;
+		int outpt=0;
+		for(char lookatme : string.toCharArray()) {
+			
+			for(int x=0;x<points.length;x++ ) {				
+							
+					//if char at index 0 to 4 give point x+1
+					//if char at index 5 gv 8 if 6 gv 10
+					if(points[x].contains(String.valueOf(lookatme).toUpperCase())){
+						if(x<5) {
+							outpt+=(x+1);
+						}else {
+							outpt+= x==5?8:10;
+						}
+					 }				
+			}
+		}
 		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		System.out.println(outpt);
+		return outpt;
 	}
 
 	/**
@@ -153,7 +218,32 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String number="0123456789";
+		String indChar;
+		ArrayList<String> scrubberOne = new ArrayList<String>();
+		String messy=string.trim();
+		
+		//check if char[0] is + or a number<string>...>>>if not throw exception
+		//start at ind[1] check if int then add char to scrubber one 
+		//check size of scubber==10 otherwise throw exception
+		if(messy.charAt(0)=='+' || messy.charAt(0)=='1') {
+			for(int x=1;x<number.length();x++) {
+				indChar=String.valueOf(number.charAt(x));
+				//Clean up the non-numbers
+				if(number.contains(indChar)) {
+					scrubberOne.add(indChar);
+				}				
+			}	
+			if(scrubberOne.size()!=10) {
+				throw new IllegalArgumentException();
+			}
+		}
+		else {
+			throw new IllegalArgumentException();
+		}
+		
+		
+		return scrubberOne.toString();
 	}
 
 	/**
