@@ -1,10 +1,10 @@
 package com.revature.eval.java.core;
 
-import java.nio.charset.Charset;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class EvaluationService {
 
@@ -181,7 +181,6 @@ public class EvaluationService {
 		}
 		// TODO Write an implementation for this method declaration
 		
-		System.out.println(outpt);
 		return outpt;
 	}
 
@@ -218,32 +217,31 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		String number="0123456789";
 		String indChar;
+		String acceptedChar[]= {"\\s","\\(","\\)","\\-","\\."};
 		ArrayList<String> scrubberOne = new ArrayList<String>();
-		String messy=string.trim();
-		
-		//check if char[0] is + or a number<string>...>>>if not throw exception
-		//start at ind[1] check if int then add char to scrubber one 
-		//check size of scubber==10 otherwise throw exception
-		if(messy.charAt(0)=='+' || messy.charAt(0)=='1') {
-			for(int x=1;x<number.length();x++) {
-				indChar=String.valueOf(number.charAt(x));
-				//Clean up the non-numbers
-				if(number.contains(indChar)) {
-					scrubberOne.add(indChar);
-				}				
-			}	
-			if(scrubberOne.size()!=10) {
-				throw new IllegalArgumentException();
-			}
+		String messy=string;
+		for(String x : acceptedChar) {
+			messy=messy.replaceAll(x, "");
 		}
-		else {
+		
+		for (char x : messy.toCharArray()) {
+			indChar=String.valueOf(x);
+			try {
+				scrubberOne.add(Integer.valueOf(indChar).toString());
+			}
+			catch(Exception e) {
+				throw new IllegalArgumentException();
+				}	
+			};
+		if(scrubberOne.size()!=10) {
 			throw new IllegalArgumentException();
 		}
+		else {
+			
+			return String.join("", scrubberOne);
+		}
 		
-		
-		return scrubberOne.toString();
 	}
 
 	/**
@@ -257,7 +255,20 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String[] strngArr=string.split(" ");
+		Map<String,Integer> outpt= new TreeMap<>();
+		int counter;
+		for(String x : strngArr) {
+			if(outpt.containsKey(x)) {
+				counter = outpt.get(x);
+				outpt.put(x , counter++);
+				}
+			else {
+				outpt.put(x,1);
+			}			
+		}
+		System.out.println(outpt);
+		return outpt;
 	}
 
 	/**
