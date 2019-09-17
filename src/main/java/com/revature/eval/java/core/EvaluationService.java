@@ -255,13 +255,16 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
+		string=string.replaceAll("\\,", " ");
+		string=string.replaceAll("\\n", " ");
+		string=string.replaceAll("  ", " ");
 		String[] strngArr=string.split(" ");
 		Map<String,Integer> outpt= new TreeMap<>();
 		int counter;
 		for(String x : strngArr) {
 			if(outpt.containsKey(x)) {
 				counter = outpt.get(x);
-				outpt.put(x , counter++);
+				outpt.put(x , ++counter);				
 				}
 			else {
 				outpt.put(x,1);
