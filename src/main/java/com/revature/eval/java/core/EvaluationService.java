@@ -270,7 +270,6 @@ public class EvaluationService {
 				outpt.put(x,1);
 			}			
 		}
-		System.out.println(outpt);
 		return outpt;
 	}
 
