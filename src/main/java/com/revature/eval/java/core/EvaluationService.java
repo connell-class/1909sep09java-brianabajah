@@ -506,7 +506,6 @@ public class EvaluationService {
 	        	}
 	        	
 	        }
-	        System.out.println(outpt);
 	        return outpt.toString(); 
 		}
 
@@ -526,21 +525,26 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int i) {
 		// TODO Write an implementation for this method declaration
-		 int count=0;
-		 int start=2;
+		int count=0;
+		 int start=2, out=0;
 		 while(count!=i) {
-			 boolean cc=false;
+			 boolean cc=true;
 			 for(int g=2;g<=start;g++) {
 				if(g!=start) {
-					if(start%g==0) {
-						cc=true;
+					if(start%g==0) {//not prime
+						cc=false;
+						break;
 					}
-				} 
+				}
 			 }
-			 if(cc) {count++;}
+			 if(cc) {
+				out=start;
+				 count++;
+				 }		 
 			 start++;
+			 
 		 }
-		    return start;
+		    return out;
 	
 	}
 
