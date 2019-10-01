@@ -329,7 +329,6 @@ public class EvaluationService {
 						
 					}
 				}
-				System.out.println(retVal);
 			return retVal;
 		}
 
@@ -408,20 +407,18 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		  // TODO Write an implementation for this method declaration
-		  int result = 0;
-		        int orig = input;
-		        while(input != 0){
-		            int remainder = input%10;
-		            result = result + remainder*remainder*remainder;
-		            input = input/10;
+
+		        String nums= Integer.toString(input);
+		        int sum=0,indv;
+		        for(int x=0;x<nums.length();x++) {
+		        	indv=Integer.valueOf(Character.toString(nums.charAt(x)));
+		        	sum+=Math.pow(indv, nums.length());
 		        }
-		        //number is Armstrong return true
-		        if(orig == result){
-		            return true;
+		        if(sum==input) {
+		        	return true;
 		        }else {
-		        	return  false;
+		        	return false;
 		        }
-		     
 		        
 		 }
 
