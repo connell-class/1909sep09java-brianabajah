@@ -302,11 +302,35 @@ public class EvaluationService {
 	 */
 	static class BinarySearch<T> {
 		private List<T> sortedList;
-
-		public int indexOf(T t) {
+		
+		public int indexOf(T t) {			
 			// TODO Write an implementation for this method declaration
-			
-			return 0;
+			int length=sortedList.size();
+			int[] postns= {0,length/2,length};
+			int retVal=0;
+				for(int x=0;x<sortedList.size();x++) {
+					int y;
+					if(t instanceof String) {
+					y=(Integer.valueOf((String)t)).compareTo(Integer.valueOf((String)sortedList.get(postns[1])));
+					}else {
+						y=((Integer)t).compareTo((Integer) sortedList.get(postns[1]));
+					}
+					if(y>=0) {
+						if(y==0) {
+							retVal=postns[1];
+							break;
+						}else {//shift characters to left
+							postns[0]=postns[1];
+							postns[1]=postns[1]+(postns[2]-postns[1])/2;
+						}
+					}else {
+						postns[2]=postns[1];
+						postns[1]=postns[0]+(postns[1]-postns[0])/2;
+						
+					}
+				}
+				System.out.println(retVal);
+			return retVal;
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -491,7 +515,7 @@ public class EvaluationService {
 				int position = alphabet.indexOf(string.toUpperCase())+key;
 				outpt.append(Character.toUpperCase(alphabet.charAt(position)));
 			}
-	        System.out.println(outpt);
+//	        System.out.println(outpt);
 	        return outpt.toString(); 
 		}
 
