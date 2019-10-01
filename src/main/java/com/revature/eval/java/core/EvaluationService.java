@@ -370,6 +370,7 @@ public class EvaluationService {
 		String vowel = "aeiou";
 		String[] sentence = string.split(" ");
 		String outpt = "";
+		String ind="";
 		for (String x : sentence) {
 			String changed = "";
 			if (vowel.contains(Character.toString(x.charAt(0)))) {
@@ -377,7 +378,7 @@ public class EvaluationService {
 			} else {
 				for (int s = 0; s < x.length(); s++) {
 					if (vowel.contains(Character.toString(x.charAt(s)))
-							&& !((x.charAt(s) == 'u') | (x.charAt(s - 1)) == 'q')) {
+							&& !specialCase(x.charAt(s),(x.charAt(s - 1)))) {
 						changed = x.substring(s, x.length()) + x.substring(0, s) + "ay";
 						break;
 					}
@@ -386,8 +387,15 @@ public class EvaluationService {
 			}
 			outpt += " " + changed;
 		}
+		System.out.println(outpt.trim());
 		return outpt.trim();
 	}
+	public boolean specialCase(char x, char y) {
+		if(x=='u'&& y=='q') {
+			return true;
+		}else {
+		return false;	
+		}	}
 
 	/**
 	 * 9. An Armstrong number is a number that is the sum of its own digits each
@@ -792,7 +800,7 @@ public class EvaluationService {
 	 */
 	public static boolean isLuhnValid(String string) {
 		// TODO Write an implementation for this method declaration
-		System.out.print(string);
+		
 		String numbs = "0123456789";
 		string = string.replace(" ", "");
 		String newNums = "";
@@ -828,8 +836,6 @@ public class EvaluationService {
 			}
 
 		}
-		
-		System.out.println(retVal);
 		return retVal;
 	}
 
