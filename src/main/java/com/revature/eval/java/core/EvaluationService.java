@@ -522,24 +522,30 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int i) {
 		// TODO Write an implementation for this method declaration
-		int count = 0;
-		int start = 2, out = 0;
-		while (count != i) {
-			boolean cc = true;
-			for (int g = 2; g <= start; g++) {
-				if (g != start) {
-					if (start % g == 0) {// not prime
-						cc = false;
-						break;
+		int out=0;
+		if(i==0) {
+			throw new IllegalArgumentException();
+		}else {
+			int count = 0;
+			int start = 2;
+			while (count != i) {
+				boolean cc = true;
+				for (int g = 2; g <= start; g++) {
+					if (g != start) {
+						if (start % g == 0) {// not prime
+							cc = false;
+							break;
+						}
 					}
 				}
-			}
-			if (cc) {
-				out = start;
-				count++;
-			}
-			start++;
+				if (cc) {
+					out = start;
+					count++;
+				}
+				start++;
 
+		}
+		
 		}
 		return out;
 
