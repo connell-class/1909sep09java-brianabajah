@@ -687,7 +687,6 @@ public class EvaluationService {
 	public boolean isPangram(String string) {
 		String norm="abcdefghijklmnopqrstuvwxyz";
 		string=string.replace(" ", "").toLowerCase();
-		System.out.println(string);
 		boolean retn=true;
 		if(string.length()>=norm.length()) {
 		HashMap<Character,Integer> magic=new HashMap<>();
@@ -707,7 +706,6 @@ public class EvaluationService {
 		}else {
 			retn=false;
 		}
-		System.out.println(retn);
 		// TODO Write an implementation for this method declaration
 		return retn;
 	}
@@ -723,6 +721,7 @@ public class EvaluationService {
 	public Temporal getGigasecondDate(Temporal given) {
 		// TODO Write an implementation for this method declaration
 		return null;
+		
 	}
 
 	/**
@@ -825,10 +824,36 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
-		
-		String nums=string.replace("/^[A-Za-z]+$/i", "");
-//		System.out.println(nums);
-		return 0;
+		int answ = 0;
+		String ints="1234567890";
+		String[] nums= {"",""};
+		int j=0;boolean foundnum=false;
+		for(char x: string.toCharArray()) {
+			if(ints.contains(Character.toString(x))) {
+				foundnum=true;
+				nums[j]+=Character.toString(x);
+			}else if(Character.toString(x).equals("-")) {
+				nums[j]+=Character.toString(x);
+			}
+			else {
+				if(foundnum) {
+					j=1;
+				}
+			}
+		}
+		if(string.contains("plus")) {
+			answ=Integer.valueOf(nums[0]) + Integer.valueOf(nums[1]);
+		}
+		else if(string.contains("minus")) {
+			answ=Integer.valueOf(nums[0]) - Integer.valueOf(nums[1]);
+		}
+		else if(string.contains("multiplied")) {
+			answ=Integer.valueOf(nums[0]) * Integer.valueOf(nums[1]);
+		}
+		else if(string.contains("divided")) {
+			answ=Integer.valueOf(nums[0]) / Integer.valueOf(nums[1]);
+		}
+		return answ;
 	}
 
 }
