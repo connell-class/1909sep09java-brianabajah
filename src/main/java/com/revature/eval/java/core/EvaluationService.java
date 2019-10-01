@@ -3,6 +3,7 @@ package com.revature.eval.java.core;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -582,7 +583,26 @@ public class EvaluationService {
 		 */
 		public static String encode(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			String norm="abcdefghijklmnopqrstuvwxyz";
+			String reversed="zyxwvutsrqponmlkjihgfedcba";
+			HashMap<Character, Character> magic= new HashMap<>();
+			for(int y=0;y<norm.length();y++) {
+				magic.put(norm.charAt(y),reversed.charAt(y));				
+			}
+			StringBuffer out= new StringBuffer();
+			int counta=0;
+			for(char x:string.toLowerCase().toCharArray() ) {				
+				if(norm.contains(Character.toString(x))) {
+					counta++;
+					if(counta>5) {
+						out.append(" ");
+						counta=1;
+					}
+					out.append(Character.toString(magic.get(x)));
+				}				
+			}
+//			System.out.println(out.toString());
+			return out.toString();
 		}
 
 		/**
