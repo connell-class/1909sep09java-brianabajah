@@ -377,7 +377,8 @@ public class EvaluationService {
 				changed=x+"ay";
 			}else {
 					for(int s=0;s<x.length();s++) {
-						if(vowel.contains(Character.toString(x.charAt(s)))){
+						if(vowel.contains(Character.toString(x.charAt(s)))
+								&& !( (x.charAt(s)=='u')| (x.charAt(s-1))=='q')){
 							changed=x.substring(s, x.length())+x.substring(0,s)+"ay";
 							break;
 						}
@@ -387,7 +388,7 @@ public class EvaluationService {
 			}
 			outpt+=" "+changed;
 		}
-			
+			System.out.println(outpt);
 		return outpt.trim();
 	}
 
