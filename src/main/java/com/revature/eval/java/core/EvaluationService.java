@@ -485,12 +485,11 @@ public class EvaluationService {
 		public String rotate(String string) {
 			char[] str= string.toUpperCase().toCharArray();
 			StringBuffer outpt= new StringBuffer(); 
-			String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			if(string.length()>1) {			
+			String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";		
 	        for(int j=0;j<string.length();j++) {
 	        	if(alphabet.contains(Character.toString(str[j]))) {
 	        		int position = alphabet.indexOf(str[j])+key;
-	        		if(position>alphabet.length()) {
+	        		if(position>alphabet.length()-1) {
 	        			position=position-alphabet.length();
 	        		}
 	        		char m;
@@ -507,12 +506,7 @@ public class EvaluationService {
 	        	}
 	        	
 	        }
-	        
-			}else {
-				int position = alphabet.indexOf(string.toUpperCase())+key;
-				outpt.append(Character.toUpperCase(alphabet.charAt(position)));
-			}
-//	        System.out.println(outpt);
+	        System.out.println(outpt);
 	        return outpt.toString(); 
 		}
 
