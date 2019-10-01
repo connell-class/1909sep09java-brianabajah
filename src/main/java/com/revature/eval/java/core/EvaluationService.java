@@ -685,8 +685,31 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
+		String norm="abcdefghijklmnopqrstuvwxyz";
+		string=string.replace(" ", "").toLowerCase();
+		System.out.println(string);
+		boolean retn=true;
+		if(string.length()>=norm.length()) {
+		HashMap<Character,Integer> magic=new HashMap<>();
+		for(int y=0;y<norm.length();y++) {
+			magic.put(norm.charAt(y),0);				
+		}
+		for(char x:string.toCharArray()) {
+			magic.put(x, magic.get(x)+1);
+		}			
+//		System.out.println(magic);
+		for(char x:magic.keySet()) {
+			if(magic.get(x)==0) {
+				retn=false;
+				break;
+			}
+		}
+		}else {
+			retn=false;
+		}
+		System.out.println(retn);
 		// TODO Write an implementation for this method declaration
-		return false;
+		return retn;
 	}
 
 	/**
