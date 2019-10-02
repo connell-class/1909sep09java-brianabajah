@@ -387,7 +387,7 @@ public class EvaluationService {
 			}
 			outpt += " " + changed;
 		}
-		System.out.println(outpt.trim());
+//		System.out.println(outpt.trim());
 		return outpt.trim();
 	}
 	public boolean specialCase(char x, char y) {
@@ -652,31 +652,28 @@ public class EvaluationService {
 	public boolean isValidIsbn(String string) {
 		// TODO Write an implementation for this method declaration
 		// length must be 10
-		int n = string.length();
-		if (n != 10)
-			return false;
-
-		// Computing weighted sum
-		// of first 9 digits
-		int sum = 0;
-		for (int i = 0; i < 9; i++) {
-			int digit = string.charAt(i) - '0';
-			if (0 > digit || 9 < digit)
-				return false;
-			sum += (digit * (10 - i));
+		String ints="0123456789";
+		ArrayList<Integer> numbas= new ArrayList<>();
+		boolean retn= false;
+		for(char y: string.toCharArray()) {
+			if(y=='X') {
+				numbas.add(10);
+			}else if(ints.contains(y+"")) {
+				numbas.add(Integer.valueOf(y+""));				
+			}			
 		}
-
-		// Checking last digit.
-		char last = string.charAt(9);
-		if (last != 'X' && (last < '0' || last > '9'))
-			return false;
-		// If last digit is 'X', add 10
-		// to sum, else add its value
-		sum += ((last == 'X') ? 10 : (last - '0'));
-
-		// Return true if weighted sum
-		// of digits is divisible by 11.
-		return (sum % 11 == 0);
+		int sum=0;
+		if(numbas.size()==10) {
+			for(int x=0;x<numbas.size();x++) {
+				sum+=numbas.get(x)*(10-x);
+			}
+			if(sum%11==0) {retn=true;}else {retn=false;}
+		}else {
+			retn=false;
+		}
+		
+		
+	return retn;
 	}
 
 	/**
@@ -728,6 +725,7 @@ public class EvaluationService {
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
 		// TODO Write an implementation for this method declaration
+		
 		return null;
 
 	}
