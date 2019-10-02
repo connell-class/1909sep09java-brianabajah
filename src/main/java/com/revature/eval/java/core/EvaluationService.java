@@ -595,6 +595,7 @@ public class EvaluationService {
 			// TODO Write an implementation for this method declaration
 			String norm = "abcdefghijklmnopqrstuvwxyz";
 			String reversed = "zyxwvutsrqponmlkjihgfedcba";
+			String ints="0123456789";
 			HashMap<Character, Character> magic = new HashMap<>();
 			for (int y = 0; y < norm.length(); y++) {
 				magic.put(norm.charAt(y), reversed.charAt(y));
@@ -602,16 +603,20 @@ public class EvaluationService {
 			StringBuffer out = new StringBuffer();
 			int counta = 0;
 			for (char x : string.toLowerCase().toCharArray()) {
-				if (norm.contains(Character.toString(x))) {
+				if (norm.contains(Character.toString(x)) || ints.contains(x+"")) {
 					counta++;
 					if (counta > 5) {
 						out.append(" ");
 						counta = 1;
 					}
+					if(ints.contains(x+"")) {
+						out.append(x+"");
+					}else {
 					out.append(Character.toString(magic.get(x)));
+					}
 				}
 			}
-			
+			System.out.println(out);
 			return out.toString();
 		}
 
@@ -637,7 +642,7 @@ public class EvaluationService {
 					out.append(x+"");
 				}
 			}
-			System.out.println(out.toString());
+			
 			return out.toString();
 		}
 	}
