@@ -611,7 +611,7 @@ public class EvaluationService {
 					out.append(Character.toString(magic.get(x)));
 				}
 			}
-//			System.out.println(out.toString());
+			
 			return out.toString();
 		}
 
@@ -623,7 +623,22 @@ public class EvaluationService {
 		 */
 		public static String decode(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			String reversed = "abcdefghijklmnopqrstuvwxyz";
+			String norm = "zyxwvutsrqponmlkjihgfedcba";
+			HashMap<Character, Character> magic = new HashMap<>();
+			for (int y = 0; y < norm.length(); y++) {
+				magic.put(norm.charAt(y), reversed.charAt(y));
+			}
+			StringBuffer out = new StringBuffer();
+			for (char x : string.toLowerCase().toCharArray()) {
+				if (norm.contains(Character.toString(x))) {			
+					out.append(Character.toString(magic.get(x)));
+				}else if(x !=' ') {
+					out.append(x+"");
+				}
+			}
+			System.out.println(out.toString());
+			return out.toString();
 		}
 	}
 
